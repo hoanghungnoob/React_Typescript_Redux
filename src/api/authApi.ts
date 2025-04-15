@@ -19,7 +19,7 @@ export interface LoginCredentials {
   
   export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
     try {
-      const response = await fetch("https://ye887syarg.execute-api.ap-southeast-1.amazonaws.com/auth/login", {
+      const response = await fetch("https://jglshyyxob.execute-api.ap-southeast-1.amazonaws.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
