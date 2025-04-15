@@ -5,13 +5,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectIsAuthenticated } from "../features/auth/authSlice";
 import { logout } from "../features/auth/authSlice"; // nếu bạn có action logout
 import { Link } from "react-router-dom";
+import type { AppDispatch } from "../app/store";
 
 const HeaderComponent: React.FC = () => {
   const [isNavVisible, setNavVisibility] = useState(false);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 700px)");
