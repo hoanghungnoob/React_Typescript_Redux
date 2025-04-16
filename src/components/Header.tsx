@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { CSSTransition } from "react-transition-group";
+import React, { useState } from "react";
 import logo from "../assets/logo.jpg";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsAuthenticated } from "../features/auth/authSlice";
@@ -9,24 +8,10 @@ import type { AppDispatch } from "../app/store";
 
 const HeaderComponent: React.FC = () => {
   const [isNavVisible, setNavVisibility] = useState(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(max-width: 700px)");
-    const handleMediaQueryChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      setIsSmallScreen(e.matches);
-    };
-
-    handleMediaQueryChange(mediaQuery);
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    return () => {
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
-    };
-  }, []);
 
   const toggleNav = () => {
     setNavVisibility(!isNavVisible);
@@ -43,18 +28,6 @@ const HeaderComponent: React.FC = () => {
   return (
     <header className="fixed top-0 left-0 w-full h-[70px] z-20 bg-[#00FFFF] shadow flex items-center px-4">
       <img src={logo} className="h-[50px] mr-4" alt="logo" />
-
-      <CSSTransition
-        in={!isSmallScreen || isNavVisible}
-        timeout={350}
-        classNames={{
-          enter: "opacity-0 scale-50",
-          enterActive: "opacity-100 scale-100 transition-all duration-350",
-          exit: "opacity-100 scale-100",
-          exitActive: "opacity-0 scale-50 transition-all duration-350",
-        }}
-        unmountOnExit
-      >
         <nav
           className={`flex-1 flex justify-evenly items-center 
             text-white text-lg font-medium 
@@ -71,8 +44,6 @@ const HeaderComponent: React.FC = () => {
             {isAuthenticated ? "Logout" : "Login"}
           </button>
         </nav>
-      </CSSTransition>
-
       <button
         onClick={toggleNav}
         className="md:hidden ml-auto text-3xl text-white bg-transparent border-none outline-none transition-transform active:scale-125"

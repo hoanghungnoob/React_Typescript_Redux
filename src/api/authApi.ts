@@ -1,5 +1,3 @@
-// Real authentication API implementation
-
 export interface LoginCredentials {
     email: string // Changed from username to name to match the API
     password: string
